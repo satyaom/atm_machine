@@ -8,6 +8,7 @@ import com.atm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.OffsetDateTime;
@@ -24,6 +25,7 @@ public class TransactionsController {
     CurrentUserSession currentUserSession;
 
     @GetMapping("/count")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<Map<String, Object>> getCustomerCount() {
         Map<String, Object> res = new HashMap<>();
         res.put("customerCount", transactionService.getCustomerInLas24Hours());
@@ -31,6 +33,7 @@ public class TransactionsController {
     }
 
     @PostMapping("")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<Map<String, Object>> createTransactions(
             @RequestBody Transaction transaction
             ) {
@@ -41,6 +44,7 @@ public class TransactionsController {
     }
 
     @GetMapping("/list")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<Map<String, Object>> listTransaction(
             @RequestParam(value = "transaction_type") TransactionType transactionType
     ) {

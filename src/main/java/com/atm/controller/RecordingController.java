@@ -1,9 +1,7 @@
 package com.atm.controller;
 
 import com.atm.enums.MediaType;
-import com.atm.model.FailureLog;
 import com.atm.model.Recording;
-import com.atm.service.FailureLogService;
 import com.atm.service.RecordingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -12,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -38,6 +37,7 @@ public class RecordingController {
     RecordingService recordingService;
 
     @PostMapping("")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<Map<String, Object>> saveFailureLog(
             @RequestBody Recording recording
     ) {
@@ -47,6 +47,7 @@ public class RecordingController {
     }
 
     @GetMapping("/download")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<InputStreamResource> downloadMedia(
             @RequestParam(value = "start_time_epoch") Long startTimeEpoch,
             @RequestParam(value = "end_time_epoch") Long endTimeEpoch,

@@ -6,6 +6,7 @@ import com.atm.service.FailureLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.OffsetDateTime;
@@ -20,6 +21,7 @@ public class FailureLogController {
     FailureLogService failureLogService;
 
     @PostMapping("")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<Map<String, Object>> saveFailureLog(
             @RequestBody FailureLog failureLog
     ) {
@@ -30,6 +32,7 @@ public class FailureLogController {
     }
 
     @GetMapping("/list")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<Map<String, Object>> listFailureLog(
             @RequestParam(value = "failure_type") FailureType failureType
     ) {

@@ -36,10 +36,10 @@ public class CustomAuthProvider implements AuthenticationProvider {
         String userId = authentication.getPrincipal().toString();
         User user = userService.getUserByToken(token, userId);
         currentUserSession.setUser(user);
-        List<GrantedAuthority> roles = new ArrayList<>();
+        List<GrantedAuthority> authorities = new ArrayList<>();
         SimpleGrantedAuthority a = new SimpleGrantedAuthority(user.getRole().toString());
-        roles.add(a);
-        return new UsernamePasswordAuthenticationToken(user.getId(), token, roles);
+        authorities.add(a);
+        return new UsernamePasswordAuthenticationToken(user.getId(), token, authorities);
     }
 
     @Override
