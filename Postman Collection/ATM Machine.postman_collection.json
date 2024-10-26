@@ -1,0 +1,296 @@
+{
+	"info": {
+		"_postman_id": "4f6a6e6f-a844-4245-90dd-6800afb547ae",
+		"name": "ATM Machine",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "25874602"
+	},
+	"item": [
+		{
+			"name": "User/Customer",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"balance\": 454.0,\n    \"name\": \"sdfdsf\",\n    \"verified\": true,\n    \"role\": \"ADMIN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/users/signup"
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/users/login?user_id=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"login"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transactions",
+			"item": [
+				{
+					"name": "Customer count in 24 hours",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth-token}}",
+								"type": "text"
+							}
+						],
+						"url": "localhost:8080/transactions/count"
+					},
+					"response": []
+				},
+				{
+					"name": "create transaction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 2,\n    \"transactionType\": \"BALANCE_INQUIRY\",\n    \"amount\": 234,\n    \"atmId\": 1\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/transactions"
+					},
+					"response": []
+				},
+				{
+					"name": "list transactions by type",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/transactions/list?transaction_type=BALANCE_INQUIRY",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"transactions",
+								"list"
+							],
+							"query": [
+								{
+									"key": "transaction_type",
+									"value": "BALANCE_INQUIRY"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Failure Logs",
+			"item": [
+				{
+					"name": "create failure log",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"atmId\": 1,\n    \"failureType\": \"DEVICE_FAILURE\",\n     \"detail\": \"caused by malfuntioned circuit\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/failure_logs"
+					},
+					"response": []
+				},
+				{
+					"name": "list failure logs by type",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/failure_logs/list?failure_type=DEVICE_FAILURE",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"failure_logs",
+								"list"
+							],
+							"query": [
+								{
+									"key": "failure_type",
+									"value": "DEVICE_FAILURE"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Recordings",
+			"item": [
+				{
+					"name": "create recording",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"atmId\": 1,\n    \"startTime\": \"1729938764\",\n    \"endTime\": \"1729938764\", \n    \"mediaType\": \"IMAGE\",\n    // \"filePath\": \"https://fastly.picsum.photos/id/569/200/200.jpg?hmac=rzX0dRJRyZs2NIa_h_87CJVeoetRLtTlweCZmYrYlCA\"\n    \"filePath\": \"https://fastly.picsum.photos/id/860/201/201.jpg?hmac=kNauGu4oIhKFszNWpcnG9stJbO9KTV5dvV-pQ8ym_dM\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/recordings"
+					},
+					"response": []
+				},
+				{
+					"name": "download recordings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth-token}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/octet-stream"
+							},
+							{
+								"key": "Accept-Encoding",
+								"value": "gzip, deflate"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/recordings/download?start_time_epoch=1729852363000&end_time_epoch=1730025163000&media_type=IMAGE",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"recordings",
+								"download"
+							],
+							"query": [
+								{
+									"key": "start_time_epoch",
+									"value": "1729852363000"
+								},
+								{
+									"key": "end_time_epoch",
+									"value": "1730025163000"
+								},
+								{
+									"key": "media_type",
+									"value": "IMAGE"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "auth-token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
