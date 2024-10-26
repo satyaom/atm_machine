@@ -24,7 +24,7 @@ public class TransactionsController {
     @Autowired
     CurrentUserSession currentUserSession;
 
-    @GetMapping("/count")
+    @GetMapping("/customers/count")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<Map<String, Object>> getCustomerCount() {
         Map<String, Object> res = new HashMap<>();
