@@ -39,4 +39,8 @@ public class UserService {
         }
         throw new AuthException();
     }
+
+    public boolean isUserExist(Long userId) {
+        return userRepository.userExist(userId);
+    }
 }

@@ -27,6 +27,10 @@ public class UserController {
             @RequestParam(value = "user_id") String user_id
     ) {
         Map<String, Object> res = new HashMap<>();
+        if(!userService.isUserExist(Long.parseLong(user_id))) {
+            res.put("message", "user not found");
+            return new ResponseEntity<>(res, HttpStatus.NOT_FOUND);
+        }
         res.put("token", userService.genToken(user_id));
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
