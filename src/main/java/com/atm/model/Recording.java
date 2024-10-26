@@ -31,6 +31,6 @@ public class Recording {
     @Column(name = "end_time", columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private OffsetDateTime endTime;
 
-    @Column(name = "media_type")
+    @Column(name = "media_type", columnDefinition = "SMALLINT")
     private MediaType mediaType;
 }

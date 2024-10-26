@@ -24,7 +24,7 @@ public class Transaction {
     @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "transaction_type")
+    @Column(name = "transaction_type", columnDefinition = "SMALLINT")
     private TransactionType transactionType;
 
     @Column(name = "timestamp", columnDefinition = "TIMESTAMP WITH TIME ZONE")

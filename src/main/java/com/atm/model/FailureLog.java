@@ -22,7 +22,7 @@ public class FailureLog {
     @Column(name = "atm_id")
     private Long atmId;
 
-    @Column(name = "failure_type")
+    @Column(name = "failure_type", columnDefinition = "SMALLINT")
     private FailureType failureType;
 
     @Column(name = "timestamp", columnDefinition = "TIMESTAMP WITH TIME ZONE")

@@ -25,6 +25,6 @@ public class User {
     @Column(name = "verified")
     private Boolean verified;
 
-    @Column(name = "role")
+    @Column(name = "role", columnDefinition = "SMALLINT")
     private UserRole role;
 }
