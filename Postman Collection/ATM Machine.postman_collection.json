@@ -68,7 +68,7 @@
 								"type": "text"
 							}
 						],
-						"url": "localhost:8080/transactions/count"
+						"url": "localhost:8080/transactions/customers/count"
 					},
 					"response": []
 				},
@@ -108,7 +108,7 @@
 							}
 						],
 						"url": {
-							"raw": "localhost:8080/transactions/list?transaction_type=BALANCE_INQUIRY",
+							"raw": "localhost:8080/transactions/list?transaction_type=WITHDRAWAL",
 							"host": [
 								"localhost"
 							],
@@ -120,7 +120,7 @@
 							"query": [
 								{
 									"key": "transaction_type",
-									"value": "BALANCE_INQUIRY"
+									"value": "WITHDRAWAL"
 								}
 							]
 						}
