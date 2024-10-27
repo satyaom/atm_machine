@@ -5,10 +5,8 @@
 
 ## Prerequisites
 
-- **ARM64 (Apple Silicon) architecture**
-- **Homebrew** installed ([Install Homebrew](https://brew.sh/))
-- **Java 17 JDK** (compatible with ARM64)
-- **Maven** (should be installed with Homebrew)
+- **Java 17 JDK**
+- **Maven**
 
 ---
 
@@ -28,7 +26,7 @@
   brew services start postgresql@14
   ```
 
-### Step 3: Download and Install JDK 17
+### Step 3: Download and Install JDK 17 (ARM64)
 Download the JDK from the official Oracle site:
 [Oracle JDK 17](https://download.oracle.com/java/17/archive/jdk-17.0.12_macos-aarch64_bin.tar.gz)
 
