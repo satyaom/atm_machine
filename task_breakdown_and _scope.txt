@@ -1,0 +1,22 @@
+Task Breakdown and order of development ->
+1. Add redis config
+2. Add redis service (required for authentication system)
+3. Setup jpa config
+4. Add user model, user service, user DAO (required for authentication system)
+5. Add token generation
+6. Add authentication system using redis service, user service and spring security
+7. Setup Spring security configuration
+8. Add user controller for signup and login
+9. Add transaction model, recording model, failure log model, atm model
+10. Add DAO for transaction, recording and failure
+12. Add service for transaction, recording and failure log
+13. Add controller for transaction -> post api to save, get api to list by type, get api customers count
+14. Add controller for recording -> post api to save, get api to list recording by time interval
+15. Add controller for failure log -> post api to save, get api to list failure logs by type
+
+
+Scope of improvements ->
+1. Global exception handling
+2. Foreign key constraint with cascade delete for data integrity
+3. S3 object to excess data
+4. Pagination in list api
