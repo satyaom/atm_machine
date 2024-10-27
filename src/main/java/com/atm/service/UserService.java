@@ -29,6 +29,7 @@ public class UserService {
         return "Basic " + Base64.encodeBase64String((userId + ":" + token).getBytes());
     }
     public User getUserByToken(String token, String userId) {
+        // get token from redis
         String tokenFromRedis = redisService.getAuthToken("token-" + userId);
         if (!tokenFromRedis.isEmpty() && tokenFromRedis.endsWith(token)) {
             Optional<User> user = getUserById(Long.parseLong(userId));

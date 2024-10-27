@@ -15,6 +15,7 @@ public class TokenGenerator {
     private static final Logger logger = LoggerFactory.getLogger(TokenGenerator.class);
     public static String generateDigestToken(String userId) {
         try {
+            // added randomness for each new request to login api
             String tokenBase = userId + UUID.randomUUID().toString();
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(tokenBase.getBytes(StandardCharsets.UTF_8));

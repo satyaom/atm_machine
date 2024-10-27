@@ -57,11 +57,14 @@ public class RecordingController {
         OffsetDateTime startTime = OffsetDateTime.ofInstant(Instant.ofEpochMilli(startTimeEpoch), ZoneOffset.UTC);
         OffsetDateTime endTime = OffsetDateTime.ofInstant(Instant.ofEpochMilli(endTimeEpoch), ZoneOffset.UTC);
 
+        // recording metadata for file paths
         List<Recording> mediaFiles = recordingService.listRecordings(mediaType,startTime, endTime);
 
+        // create file path
         Path zipFilePath = Files.createTempFile("media_files_", ".zip");
-        try (ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(zipFilePath.toFile()))) {
 
+
+        try (ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(zipFilePath.toFile()))) {
             RestTemplate restTemplate = new RestTemplate();
             for (Recording mediaFile : mediaFiles) {
                 String link = mediaFile.getFilePath();
@@ -69,14 +72,17 @@ public class RecordingController {
                 ZipEntry zipEntry = new ZipEntry(fileName);
                 zos.putNextEntry(zipEntry);
 
+                // Fetching image resource, can be replaced aws s3 object
                 ResponseEntity<Resource> response = restTemplate.exchange(link, HttpMethod.GET, null, Resource.class);
                 Resource resource = response.getBody();
 
                 if (resource != null) {
                     try (InputStream inputStream = resource.getInputStream()) {
+                        // saving stream to zip
                         inputStream.transferTo(zos);
                     }
                 }
+                // closing connection after user
                 zos.closeEntry();
             }
         }
@@ -84,7 +90,7 @@ public class RecordingController {
         InputStreamResource resource = new InputStreamResource(new FileInputStream(zipFilePath.toFile()));
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=media_files.zip")
-                .contentType(org.springframework.http.MediaType.APPLICATION_OCTET_STREAM)
+                .contentType(org.springframework.http.MediaType.APPLICATION_OCTET_STREAM) // octal stream in response
                 .body(resource);
     }
 }

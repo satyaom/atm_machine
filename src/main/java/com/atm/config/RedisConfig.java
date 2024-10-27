@@ -30,7 +30,7 @@ public class RedisConfig {
     public RedisTemplate<String, Object> redisTemplate() {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(jedisConnectionFactory());
-        template.setKeySerializer(new StringRedisSerializer());
+        template.setKeySerializer(new StringRedisSerializer()); // to save redis key and value by serializing it to byte
         template.setHashKeySerializer(new JdkSerializationRedisSerializer());
         template.setHashValueSerializer(new JdkSerializationRedisSerializer());
         template.afterPropertiesSet();

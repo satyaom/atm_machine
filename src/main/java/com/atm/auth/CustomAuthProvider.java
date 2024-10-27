@@ -30,12 +30,15 @@ public class CustomAuthProvider implements AuthenticationProvider {
         this.userService = userService;
     }
 
+    // Used by SecurityConfig, internally authenticate called before serving the route
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String token = authentication.getCredentials().toString();
         String userId = authentication.getPrincipal().toString();
+        // getUserByToken going to fetch token from redis and verify user existence also
         User user = userService.getUserByToken(token, userId);
         currentUserSession.setUser(user);
+        // GrantedAuthority give us ability to set permission api level based on authority is ADMIN or CUSTOMER
         List<GrantedAuthority> authorities = new ArrayList<>();
         SimpleGrantedAuthority a = new SimpleGrantedAuthority(user.getRole().toString());
         authorities.add(a);

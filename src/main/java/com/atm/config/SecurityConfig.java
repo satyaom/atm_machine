@@ -23,18 +23,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authProvider);
     }
 
+    // Here we can set on which route we want authentication also gradual level control given csrf disable
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .httpBasic()
+                .httpBasic() // For Basic authentication, using username and password
                 .and()
                 .authorizeRequests()
-                .antMatchers("/users/login", "/users/signup")
+                .antMatchers("/users/login", "/users/signup") // ignore these routes from authentication
                 .permitAll()
                 .antMatchers("/admin/**").hasRole(UserRole.ADMIN.toString()) // Only ADMIN role for /admin paths
-                .antMatchers("/user/**").hasAnyRole(UserRole.ADMIN.toString(), UserRole.CUSTOMER.toString()) // ADMIN or USER role for /user paths
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable();

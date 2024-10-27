@@ -6,6 +6,8 @@ import lombok.Setter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
+
+// To save session related data
 @Getter
 @Setter
 @Component
